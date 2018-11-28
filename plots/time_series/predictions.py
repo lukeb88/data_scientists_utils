@@ -14,17 +14,17 @@ def plot_prediction_train_vs_test(window_size, df, feature, train_predict, test_
             - test_predict: (array[float]) predictions on test set
     '''
 
-    # Start with training predictions.
+    # Start with training predictions
     train_predict_plot = np.empty_like(df.filter([feature]))
     train_predict_plot[:, :] = np.nan
     train_predict_plot[window_size:window_size + len(train_predict), :] = train_predict
 
-    # Add test predictions.
+    # Add test predictions
     test_predict_plot = np.empty_like(df.filter([feature]))
     test_predict_plot[:, :] = np.nan
     test_predict_plot[window_size + len(train_predict):df.shape[0], :] = test_predict
 
-    # Create the plot.
+    # Create the plot
     plt.plot(df[feature].values, label = 'True value', alpha=0.4)
     plt.plot(train_predict_plot, label = 'Training set prediction')
     plt.plot(test_predict_plot, label = 'Test set prediction')
