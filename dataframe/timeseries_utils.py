@@ -1,4 +1,5 @@
 import pandas as pd
+from statsmodels.tsa.seasonal import seasonal_decompose
 
 def create_window(df, window_size=1):    
     '''
@@ -25,3 +26,17 @@ def create_window(df, window_size=1):
     df.columns = ['val'] + cols_name
     
     return df
+
+def create_window(dataframe, feature):    
+    '''
+        Returns the seasonal decomposition of a time-series
+
+        Attributes:
+            - dataframe: (pandas.DataFrame)
+            - feature: (string) the column of the DF on which to perform decomposition
+
+        Returns: 
+            - decomposition (trend, seasonal, observed, resid)
+    '''
+
+    return seasonal_decompose(dataframe[feature], model='additive')
