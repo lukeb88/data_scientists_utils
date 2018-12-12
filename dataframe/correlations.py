@@ -11,6 +11,7 @@ def remove_correlated_columns(dataframe, threshold=0.95):
 
         Returns:
             - pandas.DataFrame : a copy of the original dataframe without the correlated columns
+            - [string] : the columns dropped
     '''
     df = dataframe.copy()
 
@@ -26,4 +27,4 @@ def remove_correlated_columns(dataframe, threshold=0.95):
     # Drop features 
     df.drop(df.columns[to_drop], axis=1, inplace=True)
 
-    return df
+    return df, to_drop

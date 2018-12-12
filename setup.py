@@ -10,7 +10,7 @@ reqs = [str(ir.req) for ir in install_reqs]
 
 setup(
     # Needed to silence warnings (and to be a worthwhile package)
-    name='data_scientists_utils',
+    name='data_scientist_utils',
     url='https://github.com/lukeb88/data_scientists_utils.git',
     author='Luca Brunelli',
     author_email='luca.brunelli@statwolf.com',
