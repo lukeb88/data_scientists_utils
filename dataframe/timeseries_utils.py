@@ -27,7 +27,7 @@ def create_window(df, window_size=1):
     
     return df
 
-def create_window(dataframe, feature):    
+def seasonal_decompose(dataframe, feature):    
     '''
         Returns the seasonal decomposition of a time-series
 
