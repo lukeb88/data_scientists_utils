@@ -1,5 +1,46 @@
 import pandas as pd
-from statsmodels.tsa.seasonal import seasonal_decompose
+
+def get_train_and_test_from_timeseries(dataframe, train_size, outputs_col, verbose=0):
+    '''
+        Splits a dataset of a time series in its corrispective train and test parts.
+        It keeps the order of the dataset.
+        
+        Attributes:
+            - dataframe      (pandas.DataFrame) : 
+            - train_size     (int)              : the percentage of the dataframe to keep in the training set (0 < train_size <= 1)
+            - outputs        ([string])         : the outputs columns
+            - verbose        (int)
+
+        Returns:
+            - (pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame): train_X, train_Y, test_X, test_Y
+    '''
+
+    assert type(dataframe) == pd.DataFrame
+    assert train_size > 0 and train_size <= 1, 'The percentage of the train_size need to be greather than 0 and less or equal to 1.'
+    assert outputs_col is not None and len(outputs_col) > 0
+
+    nrow = round(train_size * dataframe.shape[0])
+
+    train = series.iloc[:nrow, :]
+    test = series.iloc[nrow:, :]
+
+    train_X = train.drop(columns=output)
+    test_X = test.drop(columns=output)
+
+    train_Y = train[output]
+    test_Y = test[output]
+
+    if verbose == 1:
+        print('Training set shape for X (inputs):')
+        print(train_X.shape)
+        print('Training set shape for Y (output):')
+        print(train_Y.shape)
+        print('Test set shape for X (inputs):')
+        print(test_X.shape)
+        print('Test set shape for Y (output):')
+        print(test_Y.shape)
+    
+    return train_X, train_Y, test_X, test_Y
 
 def create_window_multivariate(data, window_size_backward=1, window_size_forward=None, full_forward=True):    
     '''
@@ -55,17 +96,3 @@ def create_window_multivariate(data, window_size_backward=1, window_size_forward
     final_df = pd.concat(res, axis=1)
     
     return final_df
-
-def seasonal_decompose(dataframe, feature):    
-    '''
-        Returns the seasonal decomposition of a time-series
-
-        Attributes:
-            - dataframe: (pandas.DataFrame)
-            - feature: (string) the column of the DF on which to perform decomposition
-
-        Returns: 
-            - decomposition (trend, seasonal, observed, resid)
-    '''
-
-    return seasonal_decompose(dataframe[feature], model='additive')

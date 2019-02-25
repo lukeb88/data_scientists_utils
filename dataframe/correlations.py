@@ -23,7 +23,7 @@ def autocorr(x):
     else: 
       print('Appears to be not autocorrelated')
     return r, lag
-    
+
 
 def remove_correlated_columns(dataframe, threshold=0.95):
     '''
@@ -52,8 +52,5 @@ def remove_correlated_columns(dataframe, threshold=0.95):
     df.drop(df.columns[to_drop], axis=1, inplace=True)
 
     return df, to_drop
-
-
-## 
 
 
